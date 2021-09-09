@@ -33,4 +33,4 @@ setup:
 	@echo Setup complete.
 
 clean:
-	@rm -rf $(DST_PATH)/*.FIT
+	@rm -rf $(DST_PATH)/*.FIT $(SRC_PATH)/*.FIT

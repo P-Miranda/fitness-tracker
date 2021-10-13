@@ -10,7 +10,7 @@ RENAME_SCRIPT := rename_fit.py
 
 ### Input Files
 SRC_PATH ?= ./unprocessed
-DST_PATH ?= ./Season_2021
+DST_PATH ?= ./Season_$(shell date +%Y)
 
 run: $(DST_PATH)
 	@(\

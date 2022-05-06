@@ -15,7 +15,7 @@ DST_PATH ?= ./Season_$(shell date +%Y)
 run: $(DST_PATH)
 	@(\
 	source $(VENV_PATH)/$(VENV_NAME)/bin/activate;\
-	python $(RENAME_SCRIPT) $(SRC_PATH) $(DST_PATH);\
+	python3 $(RENAME_SCRIPT) $(SRC_PATH) $(DST_PATH);\
 	deactivate;\
 	)
 

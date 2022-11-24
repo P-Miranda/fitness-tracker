@@ -1,5 +1,5 @@
 """
-Simple script that copies all input .FIT files in input path (argv[1]) to 
+Simple script that copies all input .FIT files in input path (argv[1]) to
 destination (argv[2]) and renames them according to the activity data:
     New name: AT_YYYY_MM_DD_HHhmm.FIT
         YYYY: Year
@@ -18,15 +18,18 @@ import re
 
 def format_time_created(time_created):
     # print(time_created.split())
-    time_ints = re.findall(r'\d+', time_created)
-    output_str = 'AT_' + str(time_ints[0]) # year
-    output_str = output_str + '_' + str(time_ints[1]) # month
-    output_str = output_str + '_' + str(time_ints[2]) # day
-    output_str = output_str + '_' + f"{(int(time_ints[3])+1):02}" # hour (+1h adjustment)
-    output_str = output_str + 'h' + str(time_ints[4]) # minutes
-    output_str = output_str + '.FIT'
+    time_ints = re.findall(r"\d+", time_created)
+    output_str = "AT_" + str(time_ints[0])  # year
+    output_str = output_str + "_" + str(time_ints[1])  # month
+    output_str = output_str + "_" + str(time_ints[2])  # day
+    output_str = (
+        output_str + "_" + f"{(int(time_ints[3])+1):02}"
+    )  # hour (+1h adjustment)
+    output_str = output_str + "h" + str(time_ints[4])  # minutes
+    output_str = output_str + ".FIT"
     return output_str
-    
+
+
 def get_activity_type(file_path):
     # print(file_path)
     with fitdecode.FitReader(file_path) as fit_file:
@@ -34,10 +37,11 @@ def get_activity_type(file_path):
             if isinstance(frame, fitdecode.records.FitDataMessage):
                 if frame.name == "file_id":
                     # print(frame.name)
-                    if frame.has_field('time_created'):
+                    if frame.has_field("time_created"):
                         # print(frame.get_value('time_created'))
-                        time_created = str(frame.get_value('time_created'))
+                        time_created = str(frame.get_value("time_created"))
                         return format_time_created(time_created)
+
 
 def rename_files(src_path, dst_path):
     nfiles = 0
@@ -53,23 +57,20 @@ def rename_files(src_path, dst_path):
 
     return nfiles
 
-def main():
+
+if __name__ == "__main__":
     print("Rename Script")
 
     try:
         src_path = sys.argv[1]
         dst_path = sys.argv[2]
     except:
-        print(f'Usage: python3 {sys.argv[0]} <src path> <dst path>')
+        print(f"Usage: python3 {sys.argv[0]} <src path> <dst path>")
         sys.exit()
 
-    print(f'src path: {src_path}')
-    print(f'dst path: {dst_path}')
+    print(f"src path: {src_path}")
+    print(f"dst path: {dst_path}")
 
     nfiles = rename_files(src_path, dst_path)
 
     print(f"All {nfiles} renamed")
-
-
-if __name__ == '__main__':
-    main()

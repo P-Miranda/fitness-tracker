@@ -9,14 +9,14 @@ RENAME_SCRIPT := rename_fit.py
 SRC_PATH ?= ./unprocessed
 DST_PATH ?= ./Season_$(shell date +%Y)
 
-run: $(DST_PATH) $(VENV_PYTHON)
+run: $(DST_PATH) $(VENV)
 	$(VENV_PYTHON) $(RENAME_SCRIPT) $(SRC_PATH) $(DST_PATH)
 
 $(DST_PATH):
 	@echo DST_PATH = $(DST_PATH) does not exist. Creating $(DST_PATH): 
 	mkdir -p $@
 
-$(VENV_PYTHON): requirements.txt
+$(VENV): requirements.txt
 	python3 -m venv $(VENV)
 	$(VENV_PYTHON) -m pip install --upgrade pip
 	$(VENV_PYTHON) -m pip install -r requirements.txt

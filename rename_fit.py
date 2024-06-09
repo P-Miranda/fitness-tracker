@@ -33,7 +33,7 @@ def get_activity_time(file_path):
 def rename_files(src_path, dst_path):
     nfiles = 0
     for file in os.listdir(src_path):
-        if file.endswith(".FIT"):
+        if file.endswith(".FIT") or file.endswith(".fit"):
             file_src_path = os.path.join(src_path, file)
             dst_filename = get_activity_time(file_src_path)
             file_dst_path = os.path.join(dst_path, dst_filename)
